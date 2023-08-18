@@ -6,6 +6,7 @@ This repository contains infrastructure-as-code for the automated deployment and
 configuration and management of a Hashicorp (Nomad + Consul + Vault) cluster.
 The cluster is hosted on Proxmox as a personal, private homelab.
 
+
 ## Disclaimer
 
 This project is in pre-alpha status and subject to
