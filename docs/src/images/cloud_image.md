@@ -23,18 +23,27 @@ template to be available to Proxmox.
 
 ```bash
 $ wget https://cloud.debian.org/images/cloud/bullseye/20230124-1270/debian11-generic-amd64-20230124-1270.qcow2
+$ wget https://cloud.debian.org/images/cloud/bookworm/20230802-1460/debian-12-generic-amd64-20230802-1460.qcow2
 ```
 
-2. Create a Proxmox VM from the downloaded image:
+2. Add qemu-guest-agent to the image. ssh into the proxmox node (same dir as above) and run the following
 
 ```bash
-$ qm create 9000 \
-    --name "debian-11-amd64" \
+$ sudo apt install -y libguestfs-tools
+$ sudo virt-customize --install qemu-guest-agent -a debian-12-generic-amd64-20230802-1460.qcow2
+```
+
+3. Create a Proxmox VM from the downloaded image:
+
+```bash
+$ sudo qm create 9001 \
+    --name "debian-12-amd64" \
+    --cpu "cputype=host" \
     --net0 "virtio,bridge=vmbr0" \
     --serial0 socket \
     --vga serial0 \
     --scsihw virtio-scsi-pci \
-    --scsi0 "local:0,import-from=/path/to/image" \
+    --scsi0 "local:0,import-from=/home/brian/debian-12-generic-amd64-20230802-1460.qcow2" \
     --bootdisk scsi0 \
     --boot "order=scsi0" \
     --ide1 "local:cloudinit" \
@@ -45,16 +54,16 @@ $ qm create 9000 \
     --agent 1
 ```
 
-3. Resize the new VM (if necessary):
+4. Resize the new VM (if necessary):
 
 ```bash
-$ qm resize 9000 scsi0 5G
+$ sudo qm resize 9001 scsi0 5G
 ```
 
-4. Convert the VM into a template:
+5. Convert the VM into a template:
 
 ```bash
-$ qm template 9000
+$ sudo qm template 9001
 ```
 
 ## Script
