@@ -1,0 +1,9 @@
+roles:
+    - name: alvistack.podman
+      #version: 5.2.1
+  collections:
+    - name: https://github.com/alvistack/ansible-role-podman.git
+      type: git
+      version: develop
+    - name: community.docker
+  
