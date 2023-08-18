@@ -66,6 +66,10 @@ $ sudo qm resize 9001 scsi0 5G
 $ sudo qm template 9001
 ```
 
+5. Go to the cloud-init tab on the image in the proxmox gui and set the default username/password
+
+
+
 ## Script
 
 A full script of the steps above can be found at
