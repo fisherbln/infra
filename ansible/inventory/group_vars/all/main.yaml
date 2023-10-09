@@ -1,0 +1,7 @@
+---
+timezone: "America/Chicago"
+
+ssh_authorized_keys:
+  - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILmwUhA+7/uX88OvD6djnCR7xAFp3Hi6DZSeM1LQZb55 brian@macbook
+  - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGWM7O+oD5nRxk3iL6LAhZIZzVm1xUX7nmkWCI3P2ZMT brian@panic
+  - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPuYA129ABusOhVCsDOtyVeaVKxactnOWZQB79gHQ5vo brian@desktop
