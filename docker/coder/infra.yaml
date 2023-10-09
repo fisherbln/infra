@@ -41,7 +41,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password} # The PostgreSQL password (useful to connect to the database)
       POSTGRES_DB: ${POSTGRES_DB:-coder} # The PostgreSQL default database (automatically created at first launch)
     volumes:
-      - $DOCKERDIR/appdata/coder/postgres:/var/lib/postgresql/data # Use "docker volume rm coder_coder_data" to reset Coder
+      - $VOLUMEDIR/coder/postgres:/var/lib/postgresql/data # Use "docker volume rm coder_coder_data" to reset Coder
     healthcheck:
       test:
         [
