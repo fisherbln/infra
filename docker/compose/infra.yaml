@@ -4,14 +4,6 @@ networks:
   default:
     driver: bridge
 
-########################### SECRETS
-secrets:
-  SONARR__API_KEY:
-    file: $SECRETSDIR/SONARR_API_KEY
-  RADARR__API_KEY:
-    file: $SECRETSDIR/RADARR_API_KEY
-
-
 services:
   coder:
     container_name: coder
@@ -28,7 +20,12 @@ services:
       - ../env/coder.yaml
       - ../env/infra.yaml
     environment:
-      - ESPHOME_DASHBOARD_USE_PING=true
+      CODER_PG_CONNECTION_URL: "postgresql://${POSTGRES_USER:-username}:${POSTGRES_PASSWORD:-password}@database/${POSTGRES_DB:-coder}?sslmode=disable"
+      CODER_HTTP_ADDRESS: "0.0.0.0:7080"
+      # You'll need to set CODER_ACCESS_URL to an IP or domain
+      # that workspaces can reach. This cannot be localhost
+      # or 127.0.0.1 for non-Docker templates!
+      CODER_ACCESS_URL: "${CODER_ACCESS_URL}"
     ports:
       - "7080:7080"
 
