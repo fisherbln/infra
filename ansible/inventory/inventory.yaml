@@ -1,0 +1,47 @@
+---
+all:
+  children:
+    linux:
+      children:
+        klipper:
+        pikvm:
+        roomassistant:
+
+    proxmox:
+      hosts:
+        pve1:
+          ip_address_mgmt: 10.28.1.51
+          #ip_address_data: 10.9.10.18
+          proxmox_25gbe_iface: enp1s0f0
+          proxmox_10gbe_iface: enp1s0f1
+          proxmox_1gbe_iface: eno1
+          proxmox_wan_iface: eno2
+        pve2:
+          ip_address_mgmt: 10.28.1.53
+          #ip_address_data: 10.9.10.16
+          proxmox_25gbe_iface: enp1s0f0
+          proxmox_10gbe_iface: enp1s0f1
+          proxmox_1gbe_iface: eno1
+          proxmox_wan_iface: eno2
+        pve3:
+          ip_address_mgmt: 10.28.1.53
+          #ip_address_data: 10.9.10.13
+          proxmox_25gbe_iface: enp1s0f0
+          proxmox_10gbe_iface: enp1s0f1
+          proxmox_1gbe_iface: eno1
+          #proxmox_wan_iface: eno2
+        pbs:
+          ip_address_mgmt: 10.28.1.80
+          #ip_address_data: 10.9.10.14
+          proxmox_25gbe_iface: enp1s0f0
+          proxmox_10gbe_iface: enp1s0f1
+          proxmox_1gbe_iface: eno1
+          #proxmox_wan_iface: eno2
+
+    storage:
+      hosts:
+        nas:
+
+    pikvm:
+      hosts:
+        diego:
