@@ -17,7 +17,7 @@ services:
     restart: unless-stopped
     #network_mode: host
     env_file:
-      - ../env/coder.yaml
+      - ../env/.env.yaml
       - ../env/infra.yaml
     environment:
       CODER_PG_CONNECTION_URL: "postgresql://${POSTGRES_USER:-username}:${POSTGRES_PASSWORD:-password}@database/${POSTGRES_DB:-coder}?sslmode=disable"
