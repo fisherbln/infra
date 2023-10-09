@@ -1,8 +1,8 @@
 version: "3.9"
 
-networks:
-  default:
-    driver: bridge
+#networks:
+#  default:
+#    driver: bridge
 
 services:
   coder:
