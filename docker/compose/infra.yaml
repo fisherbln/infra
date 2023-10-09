@@ -1,0 +1,44 @@
+version: "3.9"
+
+networks:
+  default:
+    driver: bridge
+
+########################### SECRETS
+secrets:
+  SONARR__API_KEY:
+    file: $SECRETSDIR/SONARR_API_KEY
+  RADARR__API_KEY:
+    file: $SECRETSDIR/RADARR_API_KEY
+
+
+services:
+  esphome:
+    container_name: esphome
+    image: ghcr.io/esphome/esphome:stable
+    volumes:
+      - $DOCKERDIR/appdata/esphome-config:/config
+      - $DOCKERDIR/secrets/esphome-secrets.yaml:/config/secrets.yaml
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      - ESPHOME_DASHBOARD_USE_PING=true
+    #ports:
+    #  - "3000:3000"
+
+  redis:
+    image: redis
+    env_file: 
+      - ../env/outline.env
+      - ../env/.env
+    ports:
+      - "6379:6379"
+    volumes:
+      - $DOCKERDIR/appdata/redis:/redis.conf
+    command: ["redis-server", "/redis.conf"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 30s
+      retries: 3
