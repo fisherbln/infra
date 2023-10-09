@@ -17,8 +17,8 @@ services:
     restart: unless-stopped
     #network_mode: host
     env_file:
-      - ../env/.env
-      - ../env/infra.env
+      - $DOCKERDIR/docker/env/.env
+      - $DOCKERDIR/docker/env/infra.env
     environment:
       CODER_PG_CONNECTION_URL: "postgresql://${POSTGRES_USER:-username}:${POSTGRES_PASSWORD:-password}@database/${POSTGRES_DB:-coder}?sslmode=disable"
       CODER_HTTP_ADDRESS: "0.0.0.0:7080"
@@ -34,8 +34,8 @@ services:
     ports:
       - "5432:5432"
     env_file:
-      - ../env/.env
-      - ../env/infra.env
+      - $DOCKERDIR/docker/env/.env
+      - $DOCKERDIR/docker/env/infra.env
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-username} # The PostgreSQL user (useful to connect to the database)
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password} # The PostgreSQL password (useful to connect to the database)
