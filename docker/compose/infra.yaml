@@ -24,6 +24,9 @@ services:
         condition: service_healthy
     restart: unless-stopped
     #network_mode: host
+    env_file:
+      - ../env/coder.yaml
+      - ../env/infra.yaml
     environment:
       - ESPHOME_DASHBOARD_USE_PING=true
     ports:
@@ -33,12 +36,15 @@ services:
     image: "postgres"
     ports:
       - "5432:5432"
+    env_file:
+      - ../env/coder.yaml
+      - ../env/infra.yaml
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-username} # The PostgreSQL user (useful to connect to the database)
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password} # The PostgreSQL password (useful to connect to the database)
       POSTGRES_DB: ${POSTGRES_DB:-coder} # The PostgreSQL default database (automatically created at first launch)
     volumes:
-      - coder_data:/var/lib/postgresql/data # Use "docker volume rm coder_coder_data" to reset Coder
+      - $DOCKERDIR/appdata/coder/postgres:/var/lib/postgresql/data # Use "docker volume rm coder_coder_data" to reset Coder
     healthcheck:
       test:
         [
@@ -48,5 +54,3 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
-volumes:
-  coder_data:
