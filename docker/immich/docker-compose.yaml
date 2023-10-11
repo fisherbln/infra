@@ -30,6 +30,8 @@ services:
       - /etc/localtime:/etc/localtime:ro
     env_file:
       - immich.env
+    ports:
+      - "3001:3001"
     depends_on:
       - redis-immich
       - postgres-immich
