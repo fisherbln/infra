@@ -1,0 +1,83 @@
+version: "3.9"
+
+services:
+  redis-immich:
+    container_name: redis-immich
+    image: redis:6.2-alpine@sha256:70a7a5b641117670beae0d80658430853896b5ef269ccf00d1827427e3263fa3
+    restart: always
+
+  postgres-immich:
+    container_name: postgres-immich
+    image: postgres
+    env_file:
+      - immich.env
+    ports:
+      - "54320:5432"
+    environment:
+      POSTGRES_PASSWORD: ${IMMICH_DB_PASSWORD}
+      POSTGRES_USER: ${IMMICH_DB_USERNAME}
+      POSTGRES_DB: ${IMMICH_DB_DATABASE_NAME}
+    volumes:
+      - $VOLUMEDIR/postgres-immich:/var/lib/postgresql/data
+    restart: always
+
+  immich-server:
+    container_name: immich_server
+    image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
+    command: ["start.sh", "immich"]
+    volumes:
+      - /photos/upload:/usr/src/app/upload
+      - /etc/localtime:/etc/localtime:ro
+    env_file:
+      - immich.env
+    depends_on:
+      - redis-immich
+      - postgres-immich
+      - typesense
+    restart: always
+
+  immich-microservices:
+    container_name: immich_microservices
+    image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
+    # extends:
+    #   file: hwaccel.yml
+    #   service: hwaccel
+    command: ["start.sh", "microservices"]
+    volumes:
+      - /photos/upload:/usr/src/app/upload
+      - /etc/localtime:/etc/localtime:ro
+    env_file:
+      - immich.env
+    depends_on:
+      - redis-immich
+      - postgres-immich
+      - typesense
+    restart: always
+
+  immich-machine-learning:
+    container_name: immich_machine_learning
+    image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-release}
+    volumes:
+      - $DOCKERDIR/appdata/immich/model-cache:/cache
+    env_file:
+      - immich.env
+    restart: always
+
+  immich-web:
+    container_name: immich_web
+    image: ghcr.io/immich-app/immich-web:${IMMICH_VERSION:-release}
+    env_file:
+      - immich.env
+    restart: always
+
+  typesense:
+    container_name: immich_typesense
+    image: typesense/typesense:0.24.1@sha256:9bcff2b829f12074426ca044b56160ca9d777a0c488303469143dd9f8259d4dd
+    environment:
+      - TYPESENSE_API_KEY=${TYPESENSE_API_KEY}
+      - TYPESENSE_DATA_DIR=/data
+      # remove this to get debug messages
+      - GLOG_minloglevel=1
+    volumes:
+      - $VOLUMEDIR/appdata/immich/typesense:/data
+    restart: always
