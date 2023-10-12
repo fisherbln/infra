@@ -3,6 +3,7 @@
 cloud-config
 
 # secrets
+secrets/*
 certs/*
 !certs/.gitkeep
 *.crt
