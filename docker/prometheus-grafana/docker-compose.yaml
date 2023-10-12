@@ -27,6 +27,7 @@ services:
     env_file:
       - grafana.env
     environment:
+      - GF_SERVER_ROOT_URL=https://grafana.nickeson.net
       - GF_SECURITY_ADMIN_USER=admin
       #GF_SECURITY_ADMIN_PASSWORD: grafana
       - GF_SECURITY_ADMIN_PASSWORD__FILE=/run/secrets/GF_SECURITY_ADMIN_PASSWORD
