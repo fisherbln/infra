@@ -41,7 +41,7 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD
       - GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET
     volumes:
-      - ./grafana/datasources:/etc/grafana/provisioning/datasources
-      - ./grafana/config:/etc/grafana/
+      #- ./grafana/datasources:/etc/grafana/provisioning/datasources
+      - ./grafana:/etc/grafana/
 #volumes:
 #  prom_data:
