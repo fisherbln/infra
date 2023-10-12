@@ -3,6 +3,8 @@ version: "3.9"
 secrets:
   GF_SECURITY_ADMIN_PASSWORD:
     file: $SECRETSDIR/GF_SECURITY_ADMIN_PASSWORD
+  GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET:
+    file: $SECRETSDIR/GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET
 
 services:
   prometheus:
@@ -28,6 +30,12 @@ services:
       - GF_SECURITY_ADMIN_USER=admin
       #GF_SECURITY_ADMIN_PASSWORD: grafana
       - GF_SECURITY_ADMIN_PASSWORD__FILE=/run/secrets/GF_SECURITY_ADMIN_PASSWORD
+      - GF_AUTH_GENERIC_OAUTH_CLIENT_ID=grafana
+      - GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET__FILE= 
+      - GF_AUTH_GENERIC_OAUTH_AUTH_URL=https://auth.nickeson.net/api/oidc/authorization
+      - GF_AUTH_GENERIC_OAUTH_TOKEN_URL=https://auth.nickeson.net/api/oidc/token
+      - GF_AUTH_GENERIC_OAUTH_API_URL=https://auth.nickeson.net/api/oidc/userinfo
+
   
     secrets:
       - GF_SECURITY_ADMIN_PASSWORD
