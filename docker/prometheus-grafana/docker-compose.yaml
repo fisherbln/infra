@@ -26,7 +26,7 @@ services:
       - grafana.env
     environment:
       GF_SECURITY_ADMIN_USER: admin
-      GF_SECURITY_ADMIN_PASSWORD=grafana
+      GF_SECURITY_ADMIN_PASSWORD: grafana
       #GF_SECURITY_ADMIN_PASSWORD: /run/secrets/GF_SECURITY_ADMIN_PASSWORD
   
     secrets:
