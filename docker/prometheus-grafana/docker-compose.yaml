@@ -33,5 +33,5 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD
     volumes:
       - ./grafana:/etc/grafana/provisioning/datasources
-volumes:
-  prom_data:
+#volumes:
+#  prom_data:
