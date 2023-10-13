@@ -10,6 +10,7 @@ services:
       - $SECRETSDIR/esphome-secrets.yaml:/config/secrets.yaml
       - /etc/localtime:/etc/localtime:ro
     restart: unless-stopped
+    privileged: true
     network_mode: host
     environment:
       - ESPHOME_DASHBOARD_USE_PING=true
