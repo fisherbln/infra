@@ -11,8 +11,8 @@ services:
       - /etc/localtime:/etc/localtime:ro
     restart: unless-stopped
     privileged: true
-    network_mode: host
+    #network_mode: host
     environment:
       - ESPHOME_DASHBOARD_USE_PING=true
-    #ports:
-    #  - "3000:3000"
+    ports:
+      - "6052:6052"
