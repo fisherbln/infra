@@ -1,13 +1,17 @@
-esphome:
-  container_name: esphome
-  image: ghcr.io/esphome/esphome:stable
-  volumes:
-    - $VOLUMEDIR/esphome-config:/config
-    - $SECRETSDIR/secrets/esphome-secrets.yaml:/config/secrets.yaml
-    - /etc/localtime:/etc/localtime:ro
-  restart: unless-stopped
-  network_mode: host
-  environment:
-    - ESPHOME_DASHBOARD_USE_PING=true
-  #ports:
-  #  - "3000:3000"
+version: "3.9"
+
+services:
+
+  esphome:
+    container_name: esphome
+    image: ghcr.io/esphome/esphome:stable
+    volumes:
+      - $VOLUMEDIR/esphome-config:/config
+      - $SECRETSDIR/secrets/esphome-secrets.yaml:/config/secrets.yaml
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      - ESPHOME_DASHBOARD_USE_PING=true
+    #ports:
+    #  - "3000:3000"
