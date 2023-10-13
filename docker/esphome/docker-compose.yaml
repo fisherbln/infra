@@ -7,7 +7,7 @@ services:
     image: ghcr.io/esphome/esphome:stable
     volumes:
       - $VOLUMEDIR/esphome-config:/config
-      - $SECRETSDIR/secrets/esphome-secrets.yaml:/config/secrets.yaml
+      - $SECRETSDIR/esphome-secrets.yaml:/config/secrets.yaml
       - /etc/localtime:/etc/localtime:ro
     restart: unless-stopped
     network_mode: host
