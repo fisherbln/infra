@@ -43,7 +43,7 @@ services:
     restart: always
     env_file: ./outline.env
     ports:
-      - "3000:3000"
+      - "5000:3000"
     depends_on:
       - postgres-outline
       - redis
