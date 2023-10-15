@@ -20,4 +20,4 @@ scrape_configs:
   - targets:
     - localhost:9990
     - pve1.nickeson.net:9100
-    
+    - pve2.nickeson.net:9100
