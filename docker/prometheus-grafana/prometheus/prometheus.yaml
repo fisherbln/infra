@@ -19,6 +19,7 @@ scrape_configs:
   static_configs:
   - targets:
     - localhost:9990
-    - pve1.nickeson.net:9100
-    - pve2.nickeson.net:9100
-    - pbs.nickeson.net:9100
+    - pve1.nickeson.net:9100 # node-exporter
+    - pve2.nickeson.net:9100 # node-exporter
+    - pbs.nickeson.net:9100 # node-exporter
+    - gateway.nickeson.net:9798 # speedtest-exporter
