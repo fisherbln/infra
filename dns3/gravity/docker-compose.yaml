@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  gravity:
+    hostname: dns3
+    image: ghcr.io/beryju/gravity:stable
+    restart: unless-stopped
+    network_mode: host
+    user: root
+    environment:
+      ETCD_JOIN_CLUSTER: LN2VzyKzmA52sVnvyg/Ekjaua65rmkz96P0uhpHFGHtM/xQ/Cs52gA0VZTIsHaVUuJfKb9AeJWcpDyrnOj9z9A,http://10.28.1.12:8008
+      BOOTSTRAP_ROLES: dns;dhcp;api;etcd;discovery;backup;monitoring;debug;tsdb
+    volumes:
+      - data:/data
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"
+volumes:
+  data:
+    driver: local
