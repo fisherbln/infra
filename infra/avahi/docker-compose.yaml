@@ -1,8 +1,14 @@
+# https://forums.unraid.net/topic/81541-avahi-or-bonjour-across-vlans/
+# https://github.com/flungo-docker/avahi
 version: "3.9"
+
+#networks:
+
+
 services:
   gravity:
-    hostname: gravity3
-    image: ghcr.io/beryju/gravity:stable
+    hostname: avahi
+    image: flungo/avahi:latest
     restart: unless-stopped
     network_mode: host
     user: root
