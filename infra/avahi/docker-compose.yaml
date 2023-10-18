@@ -3,6 +3,17 @@
 version: "3.9"
 
 #networks:
+#  defaultvlan:
+#    name: defaultvlan
+#    driver: macvlan
+#    driver_opts:
+#      parent: eth0
+#    ipam:
+#      config: 
+#        - subnet: 10.28.1.0/24
+#          #ip_range: 10.28.1.0/24
+#          gateway: 10.28.1.1
+
 
 
 services:
