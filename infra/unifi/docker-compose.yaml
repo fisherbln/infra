@@ -1,0 +1,50 @@
+# version: as of Jan 2023: https://docs.docker.com/compose/compose-file/
+
+
+services:
+#Unifi Network Application
+  unifi-controller:
+    image: linuxserver/unifi-controller
+    container_name: unifi-controller
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=$TZ
+    deploy:
+      resources:
+        limits:
+          memory: 1500mb
+        reservations:
+          memory: 1024mb
+    volumes:
+      - /home/brian/infra/infra/docker/unifi/config:/config
+    ports:
+      - 8443:8443
+      - 3478:3478/udp
+      - 10001:10001/udp
+      - 8080:8080
+      - 1900:1900/udp #optional
+      - 8843:8843 #optional
+      - 8880:8880 #optional
+      - 6789:6789 #optional
+      - 5514:5514/udp #optional
+    restart: unless-stopped
+    networks:
+      macvlan1:
+        ipv4_address: 10.28.1.240
+    #logging:
+    #  driver: gelf
+    #  options:
+    #    gelf-address: udp://10.10.10.2:12201
+    #    tag: unifi-controller
+
+
+# Volumes for persisting data, see https://docs.docker.com/engine/admin/volumes/volumes/
+volumes:
+  config:
+
+
+# Network specifications
+networks:
+  unifi:
+    external: true
