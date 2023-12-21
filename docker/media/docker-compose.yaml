@@ -125,7 +125,7 @@ services:
       driver: json-file
     ports:
       - 8080:8080
-      - 9090:9090
+      - 9091:9090
     environment:
       - PUID=$PUID
       - PGID=$GUID
