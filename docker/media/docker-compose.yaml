@@ -12,22 +12,6 @@ secrets:
     file: $SECRETSDIR/RADARR_API_KEY
 
 services:
-  portainer_agent:
-    container_name: portainer_agent
-    image: portainer/agent:latest
-    restart: unless-stopped
-    networks:
-      - default
-    ports:
-      - 9001:9001
-    environment:
-      - PUID=$PUID
-      - PGID=$GUID
-      - TZ=$TZ
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /var/lib/docker/volumes:/var/lib/docker/volumes
 
   radarr:
     container_name: radarr
@@ -46,7 +30,7 @@ services:
       - RADARR__API_KEY
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /docker/appdata/radarr:/config
+      - $VOLUMEDIR/radarr:/config
       - /media:/media
       - /downloads:/downloads
   sonarr:
@@ -66,7 +50,7 @@ services:
       - SONARR__API_KEY
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - $DOCKERDIR/appdata/sonarr:/config
+      - $VOLUMEDIR/sonarr:/config
       - /media:/media
       - /downloads:/downloads
   lidarr:
@@ -81,7 +65,7 @@ services:
       - TZ=$TZ
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - $DOCKERDIR/appdata/lidarr:/config
+      - $VOLUMEDIR/lidarr:/config
       - /media:/media
       - /downloads:/downloads
 
@@ -96,8 +80,7 @@ services:
       - UMASK=002
       - TZ=$TZ
     volumes:
-      - $DOCKERDIR/appdata/readarr:/config
-      #- /<host_folder_data>:/data
+      - $VOLUMEDIR/readarr:/config
       - /media:/media
       - /downloads:/downloads
 
@@ -115,7 +98,7 @@ services:
       - TZ=$TZ
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /docker/appdata/bazarr:/config
+      - $VOLUMEDIR/bazarr:/config
       - /media:/media
   sabnzbd:
     container_name: sabnzbd
@@ -132,7 +115,7 @@ services:
       - TZ=$TZ
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - $DOCKERDIR/appdata/sabnzbd:/config
+      - $VOLUMEDIR/sabnzbd:/config
       - /media:/media
       - /downloads:/downloads
   prowlarr:
@@ -147,7 +130,7 @@ services:
       - TZ=$TZ
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - $DOCKERDIR/appdata/prowlarr:/config
+      - $VOLUMEDIR/prowlarr:/config
 
   overseerr:
     container_name: overseerr
@@ -160,7 +143,7 @@ services:
       - PGID=$GUID
       - TZ=$TZ
     volumes:
-      - $DOCKERDIR/appdata/overseerr:/config
+      - $VOLUMEDIR/overseerr:/config
 
   recyclarr:
     image: ghcr.io/recyclarr/recyclarr
@@ -169,6 +152,6 @@ services:
     user: $PUID:$GUID
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - $DOCKERDIR/appdata/recyclarr:/config
+      - $VOLUMEDIR/recyclarr:/config
     environment:
       - TZ=$TZ
