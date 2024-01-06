@@ -17,9 +17,16 @@ scrape_configs:
   metrics_path: /metrics
   scheme: http
   static_configs:
-  - targets:
-    - localhost:9990
-    - pve1.nickeson.net:9100 # node-exporter
-    - pve2.nickeson.net:9100 # node-exporter
-    - pbs.nickeson.net:9100 # node-exporter
-    - gateway.nickeson.net:9798 # speedtest-exporter
+    - targets:
+      - localhost:9990
+      - pve1.nickeson.net:9100 # node-exporter
+      - pve2.nickeson.net:9100 # node-exporter
+      - pbs.nickeson.net:9100 # node-exporter
+      - gateway.nickeson.net:9798 # speedtest-exporter
+- job_name: vyos
+  scrape_interval: 1m
+  scrape_timeout: 10s
+  honor_timestamps: true
+  static_configs:
+    - targets:
+        - vyos.nickeson.net:9273
