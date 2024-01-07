@@ -22,7 +22,7 @@ scrape_configs:
       - pve1.nickeson.net:9100 # node-exporter
       - pve2.nickeson.net:9100 # node-exporter
       - pbs.nickeson.net:9100 # node-exporter
-- job_name: vyos
+- job_name: vyos-speedtest-exporter
   scrape_interval: 240m
   scrape_timeout: 120s
   honor_timestamps: true
