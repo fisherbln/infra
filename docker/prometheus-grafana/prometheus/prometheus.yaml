@@ -19,9 +19,11 @@ scrape_configs:
   static_configs:
     - targets:
       - localhost:9990
+      - gateway.nickeson.net:9100 # node-exporter
       - pve1.nickeson.net:9100 # node-exporter
       - pve2.nickeson.net:9100 # node-exporter
-      - pbs.nickeson.net:9100 # node-exporter
+      - pve3.nickeson.net:9100 # node-exporter
+      #- pbs.nickeson.net:9100 # node-exporter
 - job_name: vyos-speedtest-exporter
   scrape_interval: 240m
   scrape_timeout: 120s
