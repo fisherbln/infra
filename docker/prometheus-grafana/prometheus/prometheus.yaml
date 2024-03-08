@@ -38,3 +38,10 @@ scrape_configs:
   static_configs:
     - targets:
         - vyos.nickeson.net:9273
+- job_name: blocky
+  #scrape_interval: 1m
+  #scrape_timeout: 10s
+  honor_timestamps: true
+  static_configs:
+    - targets:
+        - 10.5.0.7:4000
