@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+
+  unpoller:
+    container_name: unpoller
+    image: ghcr.io/unpoller/unpoller
+    volumes:
+      - $VOLUMEDIR/unpoller/up.conf:/etc/unpoller/up.conf
+      - $SECRETSDIR/esphome-secrets.yaml:/config/secrets.yaml
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
+    #depends_on:
+    #  - grafana
+    #  - influxdb
+    # - chronograf
+    environment:
+      - UP_INFLUXDB_DB=${INFLUXDB_DB}
+      - UP_INFLUXDB_USER=${INFLUXDB_ADMIN_USER}
+      - UP_INFLUXDB_PASS=${INFLUXDB_ADMIN_PASSWORD}
+      - UP_INFLUXDB_ORG=${INFLUXDB_ORG}
+      - UP_INFLUXDB_BUCKET=${INFLUXDB_BUCKET}
+      - UP_INFLUXDB_AUTH_TOKEN=${INFLUXDB_ADMIN_TOKEN}
+      #- UP_INFLUXDB_URL=http://influxdb:8086
+      - UP_UNIFI_DEFAULT_USER=${UNIFI_USER}
+      - UP_UNIFI_DEFAULT_PASS=${UNIFI_PASS}
+      - UP_UNIFI_DEFAULT_URL=${UNIFI_URL}
+      - UP_POLLER_DEBUG=${POLLER_DEBUG}
+      - UP_UNIFI_DEFAULT_SAVE_DPI=${POLLER_SAVE_DPI}
+    ports:
+      - "6052:6052"
